@@ -11,7 +11,7 @@ export async function Nav() {
   return (
     <nav className="flex justify-between items-center w-full h-20 py-4 px-8 fixed top-0 z-30 bg-gray-950 glassmorphism-white">
       <Link href="/" id="homeLink">
-        <h1 className="font-bold text-lg hover:scale-110 transition">
+        <h1 className="logo hover:scale-110 transition">
           Notepad
         </h1>
       </Link>

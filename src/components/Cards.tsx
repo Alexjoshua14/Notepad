@@ -8,7 +8,7 @@ import { Logout } from './AuthButtons';
 
 export function PostItem({ key, post }: { key: number, post: Post }) {
   return (
-    <li key={post.id} className="py-4 px-8 flex flex-col gap-2 rounded glassmorphism-white">
+    <li key={post.id} className="flex flex-col w-[300px] py-4 px-8 gap-2 rounded glassmorphism-white">
       <span className="text-lg font-semibold text-zinc-900">{post.title}</span>
       <span className="text-sm font-light text-zinc-800">{post.content}</span>
     </li>
@@ -17,7 +17,7 @@ export function PostItem({ key, post }: { key: number, post: Post }) {
 
 export function ProfileCard({ session }: { session: Session | null }) {
   return (
-    <div className="grid grid-cols-2 center w-[360px] h-[300px] pe-4 py-8 glassmorphism-white rounded cursor-default" >
+    <div className="grid grid-cols-2 center w-[340px] sm:w-[360px] h-[300px] pe-4 py-8 glassmorphism-white rounded cursor-default" >
       <div className="flex center">
         {session?.user?.image ? <Image src={session.user.image} alt="Profile Image" width={140} height={140} className="rounded" />
           : <div className="w-[140px] h-[140px] rounded bg-gradient-to-tr from-teal-600 to-teal-400 glassmorphism" />

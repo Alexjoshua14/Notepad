@@ -10,6 +10,13 @@
   @apply bg-zinc-50 bg-opacity-30 backdrop-blur-xl text-zinc-800 border-[1px] border-zinc-50 border-opacity-10 shadow-md;
 }
 
+.logo {
+  @apply font-bold text-xl;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to left, #a8edea 0%, #fed6e3 100%);
+}
+
 .center {
   @apply justify-center items-center;
 }

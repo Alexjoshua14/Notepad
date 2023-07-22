@@ -36,7 +36,7 @@ export function NewPost() {
   }
 
   return (
-    <form id="new-post-form" className="glassmorphism-white rounded my-8 p-8 sm:w-[400px] md:w-[500px] lg:w-[600px]" action={handleSubmit}>
+    <form id="new-post-form" className="glassmorphism-white rounded my-8 p-2 sm:p-8 w-[340px] sm:w-[400px] md:w-[500px] lg:w-[600px]" action={handleSubmit}>
       <div className="flex flex-col my-4">
         <div className="flex flex-col md:flex-row justify-between py-2">
           <label htmlFor="title" className="text-xl mx-2 md:py-4" >Title:</label>

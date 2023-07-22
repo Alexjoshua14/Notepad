@@ -15,8 +15,8 @@ export default async function Home() {
   console.log(posts);
 
   return (
-    <main className="h-full w-full flex flex-col center px-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+    <main className="h-full w-full flex flex-col center">
+      <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex">
         <ul className="flex flex-col gap-4 center w-full">
           {posts.length === 0 ?
             <h1>{`No posts to show..`}</h1>
