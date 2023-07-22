@@ -19,7 +19,7 @@ export function ProfileCard({ session }: { session: Session | null }) {
   return (
     <div className="grid grid-cols-2 center w-[340px] sm:w-[360px] h-[300px] pe-4 py-8 glassmorphism-white rounded cursor-default" >
       <div className="flex center">
-        {session?.user?.image ? <Image src={session.user.image} alt="Profile Image" width={140} height={140} className="rounded" />
+        {session?.user?.image ? <Image src={session.user.image} alt="Profile Image" width={140} height={140} className="rounded glassmorphism" />
           : <div className="w-[140px] h-[140px] rounded bg-gradient-to-tr from-teal-600 to-teal-400 glassmorphism" />
         }
       </div>
