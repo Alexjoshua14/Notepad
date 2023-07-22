@@ -5,6 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+import { Post } from "@/types";
+
 export async function addPost(formData: FormData) {
   const session = await getServerSession(authOptions);
 
@@ -48,11 +50,33 @@ export async function addPost(formData: FormData) {
 }
 
 export async function getPosts() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    throw new Error('You must be signed in to view posts.');
+  }
+
   try {
-    const posts = await prisma.post.findMany();
+    const posts: Post[] = await prisma.post.findMany({where: {published: true}});
     return posts;
   } catch (err) {
     console.log(err);
     return [];
   }
 }
+
+// export async function getUnpublishedPosts() {
+//   const session = await getServerSession(authOptions);
+
+//   if (!session?.user) {
+//     throw new Error('You must be signed in to view posts.');
+//   }
+
+//   try {
+//     const posts: post[] = await prisma.post.findMany({where: {published: false, author: {id: session.user.id}}});
+//     return posts;
+//   } catch (err) {
+//     console.log(err);
+//     return [];
+//   }
+// }

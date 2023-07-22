@@ -1,10 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
 import { Nav } from '../components/Nav'
 
-const roboto = Roboto({ weight: ["100", "300", "400", "700"], subsets: ["latin"], variable: '--font-roboto' })
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: 'Notepad',
@@ -18,9 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="overscroll-none">
-      <body className={`${roboto.variable} min-h-screen bg-gradient-to-tr from-teal-800 to-pink-800 text-white`}>
+      <body className={`${inter.className} flex min-h-screen bg-gradient-to-tr from-teal-400 to-purple-700 text-white`}>
         <Nav />
-        <div className="mx-4 md:mx-48 xl:mx-96 mt-24">
+        <div className="flex-1 flex center mx-4 md:mx-48 xl:mx-96 mt-24">
           {children}
         </div>
       </body>

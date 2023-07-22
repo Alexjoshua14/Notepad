@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .glassmorphism {
-  @apply bg-opacity-30 backdrop-blur-xl;
+  @apply bg-opacity-30 backdrop-blur-xl border-[1px] border-zinc-50 border-opacity-10 shadow-md;
+}
+
+.glassmorphism-white {
+  @apply bg-zinc-50 bg-opacity-30 backdrop-blur-xl text-zinc-800 border-[1px] border-zinc-50 border-opacity-10 shadow-md;
 }
 
 .center {

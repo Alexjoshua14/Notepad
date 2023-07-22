@@ -1,12 +1,16 @@
 'use client'
 
 import { signIn, signOut } from 'next-auth/react';
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
+
+import { motion } from 'framer-motion';
+
+import { IoAddOutline } from 'react-icons/io5';
 
 export function Login() {
   return (
-    <li>
+    <li className="list-none">
       <button onClick={() => signIn()} className="text-sm bg-zinc-700 text-white py-2 px-6 rounded-xl disabled:opacity-25">
         Sign in
       </button>
@@ -24,12 +28,22 @@ export function Logout() {
 
 export function LoggedIn({ imgUrl }: { imgUrl?: string | null }) {
   return (
-    <li className="flex gap-8 items-center">
-      <Link href="/new_note">
-        <div>new note</div>
+    <li className="flex gap-8 items-center list-none">
+      <Link href="/new_note" id="newNoteLink">
+        <motion.div
+          initial={{ rotate: 0, scale: 1 }}
+          whileHover={{ rotate: 180, scale: 1.25 }}
+        >
+          <IoAddOutline size={34} className="text-teal-200" />
+        </motion.div>
       </Link>
-      <Link href="/profile" >
-        {imgUrl ? <Image src={imgUrl} alt="Profile Image" width={50} height={50} className="rounded-full" /> : <div className="w-[40px] rounded-full bg-teal-700" />}
+      <Link href="/profile" id="profileLink" >
+        <motion.div
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.1 }}
+        >
+          {imgUrl ? <Image src={imgUrl} alt="Profile Image" width={50} height={50} className="rounded-full" /> : <div className="w-[40px] rounded-full bg-teal-700 glassmorphism" />}
+        </motion.div>
       </Link>
     </li>
   )

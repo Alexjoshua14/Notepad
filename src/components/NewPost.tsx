@@ -28,7 +28,7 @@ export function NewPost() {
       .then(() => {
         setTitle('');
         setContent('');
-
+        setIsDisabled(false);
       })
       .catch(err => {
         console.error(err);
@@ -36,22 +36,35 @@ export function NewPost() {
   }
 
   return (
-    <form className="bg-gray-400 glassmorphism my-8 p-8 rounded-md" action={handleSubmit}>
+    <form id="new-post-form" className="glassmorphism-white rounded my-8 p-8 sm:w-[400px] md:w-[500px] lg:w-[600px]" action={handleSubmit}>
       <div className="flex flex-col my-4">
-        <textarea
-          name="title"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          className="p-4 text-lg rounded-md my-2 bg-zinc-200 resize-none glassmorphism"
-          maxLength={30}
-        ></textarea>
-        <textarea
-          name="content"
-          value={content}
-          maxLength={300}
-          onChange={e => setContent(e.target.value)}
-          className="p-4 text-lg rounded-md my-2 bg-zinc-200 resize-none glassmorphism"
-        ></textarea>
+        <div className="flex flex-col md:flex-row justify-between py-2">
+          <label htmlFor="title" className="text-xl mx-2 md:py-4" >Title:</label>
+          <textarea
+            name="title"
+            placeholder='My Latest Adventure..'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            className="px-4 py-2 text-lg m-2 resize-none glassmorphism-white rounded h-14 outline-none focus:bg-opacity-60 lg:w-[400px]"
+            maxLength={34}
+            id='title'
+            aria-label='Title'
+            required
+          ></textarea>
+        </div>
+        <div className="flex flex-col md:flex-row justify-between py-2">
+          <label htmlFor="content" className="text-xl md:py-4 mx-2" >Content:</label>
+          <textarea
+            name="content"
+            id="content"
+            placeholder='It began with a..'
+            value={content}
+            maxLength={300}
+            onChange={e => setContent(e.target.value)}
+            className="px-4 py-2 text-lg m-2 resize-none glassmorphism-white rounded h-40 focus:bg-opacity-60 outline-none lg:w-[400px]"
+            required
+          ></textarea>
+        </div>
       </div>
       <div className={`flex items-center justify-between gap-2`}>
         <p className={`font-bold text-sm ${content.length > 300 ? "text-red-700" : ""}`}>
@@ -59,7 +72,7 @@ export function NewPost() {
         </p>
         <button
           disabled={isDisabled}
-          className="text-white py-2 px-6 rounded-xl disabled:opacity-25 bg-fuchsia-700"
+          className="text-white py-2 px-6 rounded disabled:opacity-25 glassmorphism bg-purple-800"
           type="submit"
         >
           Create a Post
