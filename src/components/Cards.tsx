@@ -20,17 +20,17 @@ export function ProfileCard({ session }: { session: Session | null }) {
     <div className="grid grid-cols-2 center w-[360px] h-[300px] pe-4 py-8 glassmorphism-white rounded cursor-default" >
       <div className="flex center">
         {session?.user?.image ? <Image src={session.user.image} alt="Profile Image" width={140} height={140} className="rounded" />
-          : <div className="w-[140px] h-[140px] rounded bg-gradient-to-tr from-teal-800 to-teal-400" />
+          : <div className="w-[140px] h-[140px] rounded bg-gradient-to-tr from-teal-600 to-teal-400 glassmorphism" />
         }
       </div>
       <div className="flex flex-col gap-2">
         {session?.user ?
           <span className="text-xl font-medium">{session.user.name}</span>
-          : <><span className="w-[60%] h-[1.5rem] bg-zinc-400" /> <span className="w-[50%] h-[1.5rem] bg-zinc-400" /></>
+          : <><span className="w-[70%] h-[1.5rem] bg-zinc-600 glassmorphism rounded" /> <span className="w-[50%] h-[1.5rem] bg-zinc-600 glassmorphism rounded" /></>
         }
         {session?.user ?
           <span>{session?.user?.email}</span>
-          : <span className="w-[90%] h-[1.5rem] bg-zinc-400" />
+          : <span className="w-[90%] h-[1.5rem] bg-zinc-600 glassmorphism rounded" />
         }
       </div>
       <div className="flex center col-span-2">

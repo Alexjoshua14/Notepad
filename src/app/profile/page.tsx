@@ -12,7 +12,7 @@ export default async function Profile() {
   return (
     <main className="flex-1 flex center">
       {session?.user ?
-        <ProfileCard session={session} />
+        <ProfileCard session={null} />
         :
         <div className="flex flex-col w-[360px] h-[240px] center gap-8 glassmorphism-white rounded">
           <span className="text-xl font-medium">Please Login..</span >
