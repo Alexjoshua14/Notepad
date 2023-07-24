@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation'
 import { addPost, updatePost, publishPost } from '@/lib/posts'
 import { Post } from '@/types'
 
-const validTitle = (post: Post | null, title: string) => {
+const validTitle = (title: string) => {
   title = title.trim();
   return title.length > 0;
 }
 
-const validContent = (post: Post | null, content: string) => {
+const validContent = (content: string) => {
   content = content.trim();
   return content.length > 0 && content.length < 300;
 }
@@ -67,7 +67,7 @@ export function NewPost({ post }: { post: Post | null }) {
   const handleSave = () => {
     setIsDisabled(true);
     try {
-      if (validTitle(post, title) && validContent(post, content) && postChanged(post, title, content)) {
+      if (validTitle(title) && validContent(content) && postChanged(post, title, content)) {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
@@ -75,8 +75,10 @@ export function NewPost({ post }: { post: Post | null }) {
           updatePost(post, formData)
         } else {
           addPost(formData, false)
+          router.push('/')
         }
       }
+      //Show post as saved
       setIsDisabled(false);
     } catch (err) {
       console.error(err);
@@ -87,14 +89,14 @@ export function NewPost({ post }: { post: Post | null }) {
     //Disable/enable submit button based on title and content length
     if (e.target.name === 'title') {
       setTitle(e.target.value);
-      if (validTitle(post, e.target.value) && validContent(post, content) && postChanged(post, e.target.value, content)) {
+      if (validTitle(e.target.value) && validContent(content) && postChanged(post, e.target.value, content)) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
       }
     } else if (e.target.name === 'content') {
       setContent(e.target.value);
-      if (validTitle(post, title) && validContent(post, e.target.value) && postChanged(post, title, e.target.value)) {
+      if (validTitle(title) && validContent(e.target.value) && postChanged(post, title, e.target.value)) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
@@ -104,7 +106,7 @@ export function NewPost({ post }: { post: Post | null }) {
   }
 
   return (
-    <form id="new-post-form" className="glassmorphism-white rounded my-8 p-2 sm:p-8 w-[340px] sm:w-[400px] md:w-[500px] lg:w-[600px]" action={handleSubmit}>
+    <form id="new-post-form" className="flex flex-col justify-between glassmorphism-white rounded my-8 p-2 sm:p-8 w-[340px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[480px]" action={handleSubmit}>
       <div className="flex flex-col my-4">
         <div className="flex flex-col md:flex-row justify-between py-2">
           <label htmlFor="title" className="text-xl mx-2 md:py-4" >Title:</label>
@@ -155,8 +157,50 @@ export function NewPost({ post }: { post: Post | null }) {
           disabled:opacity-25 ${isDisabled ? "glassmorphism-3" : "glassmorphism-3-interactive"}`}
             type="submit"
           >
-            {post === null ? `Create a Post` : `Post`}
+            {`Post`}
           </button>
+        </div>
+      </div>
+    </form>
+  )
+}
+
+export function NewPostSkeleton() {
+  return (
+    <form id="new-post-form" className="flex flex-col justify-between glassmorphism-white rounded my-8 p-2 sm:p-8 w-[340px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[480px]" >
+      <div className="flex flex-col my-4 gap-4">
+        <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-4 py-2">
+          <div className="bg-zinc-950 w-[140px] h-[1.75rem] glassmorphism rounded" />
+          <div className="w-full h-[56px]">
+            <div className="bg-zinc-900 w-full h-[1.75rem] glassmorphism rounded" />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-4 py-2">
+          <div className="bg-zinc-950 w-[140px] h-[1.75rem] glassmorphism rounded" />
+          <div className="flex flex-col gap-2 w-full h-[160px]">
+            <div className="bg-zinc-900 w-[70%] h-[1.75rem] glassmorphism rounded" />
+            <div className="bg-zinc-900 w-[80%] h-[1.75rem] glassmorphism rounded" />
+            <div className="bg-zinc-900 w-[40%] h-[1.75rem] glassmorphism rounded" />
+          </div>
+        </div>
+      </div>
+      <div className={`flex items-center justify-between gap-2`}>
+        <p className={`font-bold text-sm w-[70px] bg-zinc-700 h-[1.25rem] glassmorphism rounded`}>
+
+        </p>
+        <div className="flex gap-2 w-1/2 min-w-[220px] h-[2rem]">
+          <button
+            disabled={true}
+            className={`flex center text-white py-2 px-6 glassmorphism rounded bg-zinc-800 w-1/3
+          disabled:opacity-25 glassmorphism-3`}
+            type="button"
+          />
+          <button
+            disabled={true}
+            className={`flex center text-white py-2 px-6 glassmorphism rounded bg-purple-800 w-2/3
+          disabled:opacity-25 glassmorphism-3`}
+            type="submit"
+          />
         </div>
       </div>
     </form>

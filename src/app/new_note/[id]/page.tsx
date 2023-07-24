@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { NewPost } from '@/components/NewPost';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
+import { NewPost, NewPostSkeleton } from '@/components/NewPost';
 import { getPost } from '@/lib/posts';
 import { Post } from '@/types';
 import { useEffect } from 'react';
 
 // have the prop default to null
 export default async function EditNote({ params }: { params: { id: string } }) {
+  const session = await getServerSession(authOptions);
+  // TODO: Make sure that the User is logged in and that the post belongs to them
+
   let post: Post | null = null;
 
   //Converts the query string to id number

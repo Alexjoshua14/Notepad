@@ -30,6 +30,14 @@
   @apply glassmorphism-3 hover:!bg-opacity-60;
 }
 
+.glassmorphism-4 {
+  @apply !bg-opacity-60;
+}
+
+.glassmorphism-4-interactive {
+  @apply glassmorphism-4 hover:!bg-opacity-70;
+}
+
 .glassmorphism-white {
   @apply glassmorphism bg-zinc-50 text-zinc-800;
 }
@@ -58,5 +66,5 @@
 }
 
 .posts-section-button {
-  @apply w-40 h-14 flex center glassmorphism rounded bg-teal-500;
+  @apply w-40 h-14 flex center rounded bg-teal-500;
 }

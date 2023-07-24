@@ -24,7 +24,7 @@ export function PostItemBrief({ post }: { post: Post }) {
       <span className="text-lg font-semibold text-zinc-900 whitespace-nowrap text-ellipsis overflow-hidden">{post.title}</span>
       <span className="text-sm font-light text-zinc-800 whitespace-nowrap text-ellipsis overflow-hidden">{post.content}</span>
       {!post.published &&
-        <div className="flex gap-4">
+        <div className="flex center gap-4">
           <Link
             href={`/new_note/${post.id}`}
             className="w-20 bg-zinc-700 text-white flex center glassmorphism glassmorphism-2-interactive rounded"
@@ -37,10 +37,16 @@ export function PostItemBrief({ post }: { post: Post }) {
           >
             Publish
           </button>
+          <button
+            className="w-20 bg-red-700 text-white flex center glassmorphism glassmorphism-2-interactive rounded"
+            onClick={() => deletePost(post.id)}
+          >
+            Delete
+          </button>
         </div>
       }
       {post.published &&
-        <div className="flex gap-4">
+        <div className="flex center gap-4">
           <Link
             href={`/new_note/${post.id}`}
             className="w-20 bg-zinc-700 text-white flex center glassmorphism glassmorphism-2-interactive rounded"
