@@ -4,11 +4,12 @@ import { getPosts } from '@/lib/posts';
 import { Post } from '@/types';
 
 import { PostItem } from '@/components/Cards';
+import { getPublishedPosts } from '@/lib/posts';
 
 export default async function Home() {
   let posts: Post[] = [];
   try {
-    posts = await getPosts();
+    posts = await getPublishedPosts();
   } catch (err) {
     console.error(err);
   }
@@ -16,18 +17,20 @@ export default async function Home() {
 
   return (
     <main className="h-full w-full flex flex-col center">
-      <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex">
-        <ul className="flex flex-col gap-4 center w-full">
+      <section className="section-main">
+        <h1 className="header">
+          Notes
+        </h1>
+        <ul className="list">
           {posts.length === 0 ?
             <h1>{`No posts to show..`}</h1>
             :
             posts.map((post) => (
               <PostItem key={post.id} post={post} />
             ))
-
           }
         </ul>
-      </div>
+      </section>
     </main>
   )
 }
