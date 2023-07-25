@@ -9,6 +9,8 @@ import { ProfileCard } from '@/components/Cards';
 
 export default async function Profile() {
   const session = await getServerSession(authOptions)
+  console.log(`Session:`, session);
+  console.log(`Session.user:`, session?.user);
 
   if (session?.user == null) {
     return (

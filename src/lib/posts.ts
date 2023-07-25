@@ -7,8 +7,10 @@ import { revalidatePath } from "next/cache";
 
 import { Post } from "@/types";
 
+ 
 export async function addPost(formData: FormData, publish: boolean) {
   const session = await getServerSession(authOptions);
+  console.log("Session: ", session);
 
   const title = formData.get('title');
   const content = formData.get('content');
@@ -117,7 +119,7 @@ export async function getPost(id: number) {
   try {
     const res = await prisma.post.findUnique({where: {id}});
     if (!res) {
-      throw new Error('No post found.');  
+      throw new Error('No post found.'); 
     }
     const post: Post = res;
     return post;
@@ -192,18 +194,18 @@ export async function deletePost(id: number) {
   }
 }
 
-// export async function getUnpublishedPosts() {
-//   const session = await getServerSession(authOptions);
+export async function getUnpublishedPosts() {
+  const session = await getServerSession(authOptions);
 
-//   if (!session?.user) {
-//     throw new Error('You must be signed in to view posts.');
-//   }
+  if (!session?.user) {
+    throw new Error('You must be signed in to view posts.');
+  }
 
-//   try {
-//     const posts: post[] = await prisma.post.findMany({where: {published: false, author: {id: session.user.id}}});
-//     return posts;
-//   } catch (err) {
-//     console.log(err);
-//     return [];
-//   }
-// }
+  try {
+    const posts: Post[] = await prisma.post.findMany({where: {published: false, author: {id: session.user.id}}});
+    return posts;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+}
