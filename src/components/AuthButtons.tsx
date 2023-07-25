@@ -11,7 +11,7 @@ import { IoAddOutline } from 'react-icons/io5';
 export function Login() {
   return (
     <li className="list-none">
-      <button onClick={() => signIn()} className="text-sm bg-zinc-800 text-white py-2 px-6 rounded glassmorphism glassmorphism-3-interactive disabled:opacity-25 hover:bg-opacity-40">
+      <button onClick={() => signIn()} id="loginButton" className="text-sm bg-zinc-800 text-white py-2 px-6 rounded glassmorphism glassmorphism-3-interactive disabled:opacity-25 hover:bg-opacity-40">
         Sign in
       </button>
     </li>
@@ -20,7 +20,7 @@ export function Login() {
 
 export function Logout() {
   return (
-    <button onClick={() => signOut()} className="text-sm bg-red-600 text-white py-2 px-6 rounded glassmorphism glassmorphism-3-interactive disabled:opacity-25">
+    <button onClick={() => signOut()} id="logoutButton" className="text-sm bg-red-600 text-white py-2 px-6 rounded glassmorphism glassmorphism-3-interactive disabled:opacity-25">
       Sign out
     </button>
   )
