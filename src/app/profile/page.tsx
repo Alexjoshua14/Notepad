@@ -16,7 +16,7 @@ export default async function Profile() {
     return (
       <main className="flex-1 h-full w-full flex center">
         <div className="flex flex-col w-[340px] sm:w-[360px] h-[240px] center gap-8 glassmorphism-white rounded">
-          <span className="text-xl font-medium">Please Login..</span >
+          <h1 className="text-xl font-medium">Please Login..</h1>
           <Login />
         </div>
       </main>
