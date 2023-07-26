@@ -16,9 +16,9 @@ Technologies being used include:
 
 ___
 
-## Preview
+## Deployment
 
-A preview of this application is not available at this time
+This app is viewable [here](https://notepad-iota.vercel.app/)
 
 <!-- Create an image with width 400 -->
 
