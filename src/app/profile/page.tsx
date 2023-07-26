@@ -25,7 +25,7 @@ export default async function Profile() {
 
   return (
     <main className="flex-1 h-full w-full sm:px-4 flex flex-col items-center gap-8">
-      <ProfileCard session={null} />
+      <ProfileCard session={session} />
       <UserPosts session={session} />
     </main>
   )
