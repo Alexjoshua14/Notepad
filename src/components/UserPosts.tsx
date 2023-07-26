@@ -45,10 +45,10 @@ export default function UserPosts({ session }: { session: Session }) {
   return (
     <div className="flex flex-col center gap-4 w-full mx-2 sm:mx-14">
       <div className="flex gap-2">
-        <button onClick={() => setTab('posts')} className={`posts-section-button ${tab == 'posts' ? "glassmorphism-4" : "glassmorphism-1-interactive"}`}>
+        <button onClick={() => setTab('posts')} id="postsTab" className={`posts-section-button ${tab == 'posts' ? "glassmorphism-4" : "glassmorphism-1-interactive"}`}>
           Posts
         </button>
-        <button onClick={() => setTab('drafts')} className={`posts-section-button ${tab == 'drafts' ? "glassmorphism-4" : "glassmorphism-1-interactive"}`}>
+        <button onClick={() => setTab('drafts')} id="draftsTab" className={`posts-section-button ${tab == 'drafts' ? "glassmorphism-4" : "glassmorphism-1-interactive"}`}>
           Drafts
         </button>
       </div>
