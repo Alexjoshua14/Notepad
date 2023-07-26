@@ -3,7 +3,7 @@ import { NewPost } from '@/components/NewPost';
 import { Post } from '@/types';
 
 // have the prop default to null
-export default function NewNote({ post }: { post: Post | null }) {
+export default function NewNote({ post }: { post?: Post }) {
   return (
     <main className="flex-1 h-full w-full flex center">
       <section className="section-main">

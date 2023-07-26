@@ -4,28 +4,11 @@ import React, { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { addPost, updatePost, publishPost } from '@/lib/posts'
+import { validUpdate } from '@/lib/utils'
 import { Post } from '@/types'
 
-const validTitle = (title: string) => {
-  title = title.trim();
-  return title.length > 0;
-}
 
-const validContent = (content: string) => {
-  content = content.trim();
-  return content.length > 0 && content.length < 300;
-}
-
-const postChanged = (post: Post | null, title: string, content: string) => {
-  if (post == null) {
-    return true;
-  }
-  title = title.trim();
-  content = content.trim();
-  return post.title !== title || post.content !== content;
-}
-
-export function NewPost({ post }: { post: Post | null }) {
+export function NewPost({ post }: { post?: Post | null }) {
   const [title, setTitle] = useState(post?.title ?? '');
   const [content, setContent] = useState(post?.content ?? '');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -67,17 +50,20 @@ export function NewPost({ post }: { post: Post | null }) {
   const handleSave = () => {
     setIsDisabled(true);
     try {
-      if (validTitle(title) && validContent(content) && postChanged(post, title, content)) {
+
+      //Ensure title and content are valid
+      if (validUpdate(title, content, post)) {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
-        if (post != null) {
+        if (post) {
           updatePost(post, formData)
         } else {
           addPost(formData, false)
           router.push('/')
         }
       }
+
       //Show post as saved
       setIsDisabled(false);
     } catch (err) {
@@ -86,17 +72,18 @@ export function NewPost({ post }: { post: Post | null }) {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+
     //Disable/enable submit button based on title and content length
     if (e.target.name === 'title') {
       setTitle(e.target.value);
-      if (validTitle(e.target.value) && validContent(content) && postChanged(post, e.target.value, content)) {
+      if (validUpdate(e.target.value, content, post)) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
       }
     } else if (e.target.name === 'content') {
       setContent(e.target.value);
-      if (validTitle(title) && validContent(e.target.value) && postChanged(post, title, e.target.value)) {
+      if (validUpdate(title, e.target.value, post)) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
