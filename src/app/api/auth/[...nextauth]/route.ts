@@ -11,6 +11,11 @@ export const authOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+      authorization: {
+        params: {
+          prompt: "consent",
+        },
+      },
     }),
   ],
   callbacks: {
