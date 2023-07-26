@@ -6,6 +6,7 @@ import { NewPost, NewPostSkeleton } from '@/components/NewPost';
 import { getPost } from '@/lib/posts';
 import { Post } from '@/types';
 import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 // have the prop default to null
 export default async function EditNote({ params }: { params: { id: string } }) {
@@ -19,9 +20,16 @@ export default async function EditNote({ params }: { params: { id: string } }) {
   const id = parseInt(params.id);
 
   if (typeof (id) == 'number') {
+    console.log("Post ID: ", id);
     post = await getPost(id);
+    console.log("Post: ", post);
   } else {
     console.log("Unable to parse post ID from query string..");
+  }
+
+  if (session.user.id != post?.authorId) {
+    console.log("User is not the author of this post..");
+    redirect("/new_note");
   }
 
   return (

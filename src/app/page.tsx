@@ -13,7 +13,6 @@ export default async function Home() {
   } catch (err) {
     console.error(err);
   }
-  console.log(posts);
 
   return (
     <main className="h-full w-full flex flex-col center">

@@ -10,12 +10,11 @@ import { Post } from "@/types";
  
 export async function addPost(formData: FormData, publish: boolean) {
   const session = await getServerSession(authOptions);
-  console.log("Session: ", session);
 
   const title = formData.get('title');
   const content = formData.get('content');
 
-  if (!session?.user) {
+  if (!session?.user?.id) {
     throw new Error('You must be signed in to add a post.');
   }
 
@@ -32,8 +31,6 @@ export async function addPost(formData: FormData, publish: boolean) {
   // Clean title and content
 
 
-  console.log(`AddPost: \n\t${formData.get('title')}\n\t${formData.get('content')}`);
-
   // Add post to database
   try {
     const post = await prisma.post.create({
@@ -41,6 +38,7 @@ export async function addPost(formData: FormData, publish: boolean) {
         title,
         content,
         published: publish,
+        authorId: session.user.id
       }
     });
 
@@ -77,7 +75,8 @@ export async function updatePost(post: Post, formData: FormData) {
   try {
     const updatedPost = await prisma.post.update({
       where: {
-        id: post.id
+        id: post.id,
+        authorId: session.user.id
       },
       data: {
         title,
@@ -101,7 +100,7 @@ export async function getPublishedPosts() {
   }
 
   try {
-    const posts: Post[] = await prisma.post.findMany({where: {published: true}});
+    const posts: Post[] = await prisma.post.findMany({where: {published: true, authorId: session.user.id}});
     return posts;
   } catch (err) {
     console.log(err);
@@ -117,7 +116,7 @@ export async function getPost(id: number) {
   }
 
   try {
-    const res = await prisma.post.findUnique({where: {id}});
+    const res = await prisma.post.findUnique({where: {id, authorId: session.user.id}});
     if (!res) {
       throw new Error('No post found.'); 
     }
@@ -137,7 +136,7 @@ export async function getPosts() {
   }
 
   try {
-    const posts: Post[] = await prisma.post.findMany();
+    const posts: Post[] = await prisma.post.findMany({where: {authorId: session.user.id}});
     return posts;
   } catch (err) {
     console.log(err);
@@ -155,7 +154,8 @@ export async function publishPost(id: number) {
   try {
     const post = await prisma.post.update({
       where: {
-        id
+        id,
+        authorId: session.user.id
       },
       data: {
         published: true
@@ -181,7 +181,7 @@ export async function deletePost(id: number) {
     const post = await prisma.post.delete({
       where: {
         id,
-        // authorId: session.user.id
+        authorId: session.user.id
       }
     });
 
@@ -202,7 +202,7 @@ export async function getUnpublishedPosts() {
   }
 
   try {
-    const posts: Post[] = await prisma.post.findMany({where: {published: false, author: {id: session.user.id}}});
+    const posts: Post[] = await prisma.post.findMany({where: {published: false, authorId: session.user.id}});
     return posts;
   } catch (err) {
     console.log(err);
