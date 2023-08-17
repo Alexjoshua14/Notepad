@@ -1,8 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/react'
 import { Inter } from 'next/font/google'
 
 import { Nav } from '../components/Nav'
+
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,6 +24,7 @@ export default function RootLayout({
         <Nav />
         <div className="flex-1 flex center max-w-full mx-4 md:mx-48 xl:mx-96 pt-24 pb-12">
           {children}
+          <Analytics />
         </div>
       </body>
     </html>
