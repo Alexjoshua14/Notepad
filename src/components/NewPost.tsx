@@ -1,14 +1,13 @@
 'use client'
 
-import React, { useState, useTransition } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { addPost, updatePost, publishPost } from '@/lib/posts'
 import { validUpdate } from '@/lib/utils'
 import { Post } from '@/types'
 
-
-export function NewPost({ post }: { post?: Post | null }) {
+export function NewPost({ post, demo = false }: { post?: Post | null, demo?: boolean }) {
   const [title, setTitle] = useState(post?.title ?? '');
   const [content, setContent] = useState(post?.content ?? '');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -30,6 +29,13 @@ export function NewPost({ post }: { post?: Post | null }) {
       return;
     }
     try {
+      if (demo) {
+        setTitle('');
+        setContent('');
+        setIsDisabled(false);
+        router.push('/demo');
+        return;
+      }
 
       if (post != null) {
         updatePost(post, formData)
@@ -50,6 +56,13 @@ export function NewPost({ post }: { post?: Post | null }) {
   const handleSave = () => {
     setIsDisabled(true);
     try {
+      if (demo) {
+        setTitle('');
+        setContent('');
+        setIsDisabled(false);
+        router.push('/demo');
+        return;
+      }
 
       //Ensure title and content are valid
       if (validUpdate(title, content, post)) {

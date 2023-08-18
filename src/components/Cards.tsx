@@ -4,6 +4,7 @@ import { Session } from "next-auth";
 import Image from 'next/image';
 
 import { Logout } from './AuthButtons';
+import { DemoLogout } from '@/components/demoComponents';
 import { publishPost, deletePost } from "@/lib/posts";
 import Link from "next/link";
 import { Post } from "../types";
@@ -75,7 +76,7 @@ export function PostItemBriefSkeleton({ index }: { index: number }) {
   )
 }
 
-export function ProfileCard({ session }: { session: Session | null }) {
+export function ProfileCard({ session, demo = false }: { session: Session | null, demo?: boolean }) {
   return (
     <div className="grid grid-cols-2 center w-[340px] sm:w-[360px] md:w-[480px] lg:w-[600px] h-[240px] pe-4 py-2 glassmorphism-white rounded cursor-default" >
       <div className="flex center">
@@ -94,7 +95,7 @@ export function ProfileCard({ session }: { session: Session | null }) {
         }
       </div>
       <div className="flex center col-span-2">
-        <Logout />
+        {demo ? <DemoLogout /> : <Logout />}
       </div>
     </div >
   )
