@@ -4,9 +4,10 @@ import React, { useEffect } from 'react'
 import { Session } from "next-auth";
 
 import { getPosts } from "@/lib/posts";
+import { getDemoPosts } from "@/lib/demo";
 import { PostItemBrief, PostItemBriefSkeleton } from "./Cards";
+import { DemoPostItemBrief } from "./demoComponents";
 import { Post } from "../types";
-import { use } from "react";
 
 export default function UserPosts({ session }: { session: Session }) {
   const [posts, setPosts] = React.useState<Post[]>([]);
@@ -18,9 +19,9 @@ export default function UserPosts({ session }: { session: Session }) {
       const fetchPosts = async () => {
         setIsFetching(true);
         const data = await getPosts();
-        console.log(data);
+
         setIsFetching(false);
-        console.log(data);
+
         setPosts(data);
       }
 
