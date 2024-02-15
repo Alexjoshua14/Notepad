@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/oauth/authOptions';
 
 import { NewPost, NewPostSkeleton } from '@/components/NewPost';
 import { getPost } from '@/lib/posts';

@@ -6,7 +6,7 @@ import { Post } from '@/types';
 import { PostItem } from '@/components/Cards';
 import { getPublishedPosts } from '@/lib/posts';
 import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/oauth/authOptions';
 import Link from 'next/link';
 
 export default async function Home() {
